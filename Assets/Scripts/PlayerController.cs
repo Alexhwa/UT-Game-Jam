@@ -10,23 +10,36 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rgdbdy2;
     public float maxSpeed;
 
+    //Sprite Flip
+    private SpriteRenderer spriteRend;
+    private Direction direction;
+
     //Gravity
     public float gravity;
     private static GameObject planet;
     private float normalDistFromPlanet;
+
+    //Animation
+    private Animator anim;
 
     //Jump checks
     public LayerMask ground;
     private bool grounded;
     private GameObject groundCheck;
 
+    public enum Direction
+    {
+        left, right
+    }
     // Start is called before the first frame update
     void Start()
     {
+        spriteRend = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
         planet = GameObject.Find("Planet");
         rgdbdy2 = GetComponent<Rigidbody2D>();
         groundCheck = transform.GetChild(0).gameObject;
-
+        direction = Direction.right;
         normalDistFromPlanet = Vector2.Distance(transform.position, planet.transform.position);
     }
 
@@ -35,16 +48,24 @@ public class PlayerController : MonoBehaviour
     {
         if(Input.GetKey(KeyCode.RightArrow))
         {
+            anim.SetBool("Walking", true);
             rgdbdy2.AddForce(transform.right * xSpeed);
             if (rgdbdy2.velocity.magnitude >= maxSpeed)
             {
                 var newVel = rgdbdy2.velocity;
                 newVel /= 1.1f;
                 rgdbdy2.velocity = newVel;
+                
+            }
+            if(direction == Direction.left)
+            {
+                direction = Direction.right;
+                spriteRend.flipX = !spriteRend.flipX;
             }
         }
         else if(Input.GetKey(KeyCode.LeftArrow))
         {
+            anim.SetBool("Walking", true);
             rgdbdy2.AddForce(transform.right * -xSpeed);
             if (rgdbdy2.velocity.magnitude >= maxSpeed)
             {
@@ -52,6 +73,15 @@ public class PlayerController : MonoBehaviour
                 newVel /= 1.1f;
                 rgdbdy2.velocity = newVel;
             }
+            if (direction == Direction.right)
+            {
+                direction = Direction.left;
+                spriteRend.flipX = !spriteRend.flipX;
+            }
+        }
+        else if(!Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow))
+        {
+            anim.SetBool("Walking", false);
         }
         /*else if(rgdbdy2.velocity.magnitude >= maxSpeed)
         {
@@ -63,6 +93,7 @@ public class PlayerController : MonoBehaviour
         transform.up = dir * -1;
 
         grounded = Physics2D.OverlapCircle(groundCheck.transform.position, .03f, ground);
+        anim.SetBool("Grounded", grounded);
         if(Input.GetKeyDown(KeyCode.Space) && grounded)
         {
             //assume player is on the ground
