@@ -67,7 +67,10 @@ public class PlayerController : MonoBehaviour
                 spriteRend.flipX = !spriteRend.flipX;
                 var newScale = spear.transform.localScale;
                 newScale.x *= -1;
-                spear.transform.localScale = newScale;
+                if (!spear.GetComponent<SpearController>().getThrown())
+                {
+                    spear.transform.localScale = newScale;
+                }
             }
         }
         else if(Input.GetKey(KeyCode.A))
@@ -86,7 +89,10 @@ public class PlayerController : MonoBehaviour
                 spriteRend.flipX = !spriteRend.flipX;
                 var newScale = spear.transform.localScale;
                 newScale.x *= -1;
-                spear.transform.localScale = newScale;
+                if (!spear.GetComponent<SpearController>().getThrown())
+                {
+                    spear.transform.localScale = newScale;
+                }
             }
         }
         else if(!Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow))
@@ -102,7 +108,7 @@ public class PlayerController : MonoBehaviour
         Vector3 dir = planet.transform.position - this.transform.position;
         transform.up = dir * -1;
 
-        grounded = Physics2D.OverlapCircle(groundCheck.transform.position, .03f, ground);
+        grounded = Physics2D.OverlapCircle(groundCheck.transform.position, .1f, ground);
         anim.SetBool("Grounded", grounded);
         if(Input.GetKeyDown(KeyCode.Space) && grounded)
         {
@@ -116,7 +122,7 @@ public class PlayerController : MonoBehaviour
                 rgdbdy2.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
             }
         }
-        
+        //gravity
         rgdbdy2.AddForce(gravity * 
             (Vector2.Distance(transform.position, planet.transform.position) / normalDistFromPlanet) * dir);
         
