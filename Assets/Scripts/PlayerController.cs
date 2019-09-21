@@ -27,6 +27,9 @@ public class PlayerController : MonoBehaviour
     private bool grounded;
     private GameObject groundCheck;
 
+    //Spear
+    private GameObject spear;
+
     public enum Direction
     {
         left, right
@@ -34,6 +37,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        spear = transform.GetChild(1).gameObject;
         spriteRend = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         planet = GameObject.Find("Planet");
@@ -46,7 +50,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKey(KeyCode.RightArrow))
+        if(Input.GetKey(KeyCode.D))
         {
             anim.SetBool("Walking", true);
             rgdbdy2.AddForce(transform.right * xSpeed);
@@ -61,9 +65,12 @@ public class PlayerController : MonoBehaviour
             {
                 direction = Direction.right;
                 spriteRend.flipX = !spriteRend.flipX;
+                var newScale = spear.transform.localScale;
+                newScale.x *= -1;
+                spear.transform.localScale = newScale;
             }
         }
-        else if(Input.GetKey(KeyCode.LeftArrow))
+        else if(Input.GetKey(KeyCode.A))
         {
             anim.SetBool("Walking", true);
             rgdbdy2.AddForce(transform.right * -xSpeed);
@@ -77,6 +84,9 @@ public class PlayerController : MonoBehaviour
             {
                 direction = Direction.left;
                 spriteRend.flipX = !spriteRend.flipX;
+                var newScale = spear.transform.localScale;
+                newScale.x *= -1;
+                spear.transform.localScale = newScale;
             }
         }
         else if(!Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow))
@@ -96,8 +106,15 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("Grounded", grounded);
         if(Input.GetKeyDown(KeyCode.Space) && grounded)
         {
+            if (anim.GetBool("Walking"))
+            {
+                rgdbdy2.AddForce(transform.up * jumpForce * (1 + 2 * rgdbdy2.velocity.magnitude / maxSpeed), ForceMode2D.Impulse);
+            }
             //assume player is on the ground
-            rgdbdy2.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
+            else
+            {
+                rgdbdy2.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
+            }
         }
         
         rgdbdy2.AddForce(gravity * 
