@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     public float jumpForce;
     private Rigidbody2D rgdbdy2;
 
-    private static float gravity = 0.5f;
+    private static float gravity = 6f;
     private static GameObject planet;
 
     //Jump checks
@@ -27,18 +27,18 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.RightArrow))
+        if(Input.GetKey(KeyCode.RightArrow) || Input.GetKey("d"))
         {
-            rgdbdy2.AddForce(transform.right * xSpeed);
+            rgdbdy2.velocity = new Vector2 (xSpeed * Time.deltaTime, rgdbdy2.velocity.y);
         }
-        else if(Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            rgdbdy2.AddForce(transform.right * -xSpeed);
-        }
-        Vector3 dir = planet.transform.position - this.transform.position;
+        else if(Input.GetKey(KeyCode.LeftArrow) || Input.GetKey("a"))
+		{
+			rgdbdy2.velocity = new Vector2(-xSpeed * Time.deltaTime, rgdbdy2.velocity.y);
+		}
+        Vector3 dir = new Vector3(planet.transform.position.x - transform.position.x, planet.transform.position.y - transform.position.y, 0f);
         transform.up = dir * -1;
 
-        grounded = Physics2D.OverlapBox(groundCheck.transform.position, new Vector2(0.5f, 0.05f), ground);
+        grounded = Physics2D.OverlapBox(groundCheck.transform.position, new Vector2(0.05f, 0.05f), ground);
         if(Input.GetKeyDown(KeyCode.Space) && grounded)
         {
             //assume player is on the ground
@@ -49,4 +49,9 @@ public class PlayerController : MonoBehaviour
             rgdbdy2.AddForce(gravity * dir);
         }
     }
+
+	public Vector2 getTransformUp()
+	{
+		return transform.up;
+	}
 }
