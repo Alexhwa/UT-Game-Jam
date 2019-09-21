@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class BasicBugBehavior : MonoBehaviour
@@ -14,54 +15,85 @@ public class BasicBugBehavior : MonoBehaviour
 	}
 
 	private Rigidbody2D rb;
+	private static GameObject planet;
+	private BasicBugScanner leftScanner;
+	private BasicBugScanner rightScanner;
 
+	public float gravity = 0.5f;
 	public float movementSpeed = 10f;
-	private Direction _currDir;
+	private Direction _currDir = Direction.RIGHT;
+	private Direction _nextDir = Direction.LEFT;
 	private State _currState;
 
-	public Direction currDir { get => _currDir; set => _currDir = value; }
+	public Direction currDir { get => _currDir;}
+	public Direction nextDir { get => _nextDir; set => _nextDir = value; }
 	public State currState { get => _currState; set => _currState = value; }
 
 	// Start is called before the first frame update
 	void Start()
     {
 		rb = gameObject.GetComponent<Rigidbody2D>();
-    }
+		planet = GameObject.Find("Planet");
+		leftScanner = transform.parent.GetChild(1).GetChild(0).gameObject.GetComponent<BasicBugScanner>();
+		rightScanner = transform.parent.GetChild(1).GetChild(1).gameObject.GetComponent<BasicBugScanner>();
+	}
 
-    // Update is called once per frame
-    void Update()
+	void Update()
+	{
+		if(currDir != nextDir)
+		{
+			transform.localScale = new Vector3(transform.localScale.x * -1f, transform.localScale.y,
+												transform.localScale.z);
+			_currDir = nextDir;
+		}
+	}
+
+	void FixedUpdate()
     {
+		if(currState == State.IDLE)
+		{
+			if(leftScanner.plrInView || rightScanner.plrInView)
+			{
+				currState = State.CHASING;
+			}
+		}
 		if(currState == State.CHASING)
 		{
-			move(currDir);
-		}
-    }
+			move();
 
-	private void move(Direction dir)
-	{
-		if(dir == Direction.RIGHT)
-		{
-			rb.velocity = new Vector2(movementSpeed, rb.velocity.y);
+			if(!leftScanner.plrInView && !rightScanner.plrInView)
+			{
+				currState = State.IDLE;
+			}
 		}
-		else if(dir == Direction.LEFT)
+		Vector3 dir = new Vector3(planet.transform.position.x - transform.position.x, planet.transform.position.y - transform.position.y, 0f);
+		transform.up = dir * -1;
+
+		rb.AddForce(gravity * dir);
+	}
+
+	private void move()
+	{
+		if(currDir == Direction.LEFT)
 		{
-			rb.velocity = new Vector2(-movementSpeed, rb.velocity.y);
+			rb.AddForce(transform.right * -movementSpeed);
+		}
+		else
+		{
+			rb.AddForce(transform.right * movementSpeed);
 		}
 	}
 
-	private void OnTriggerEnter2D(Collider2D col)
+	public Vector3 getTransformUp()
 	{
-		if(currState == State.IDLE && col.tag.Equals("Player"))
-		{
-			currState = State.CHASING;
-		}
+		return transform.up;
 	}
 
-	private void OnTriggerExit2D(Collider2D col)
+	private void OnCollisionEnter2D(Collision2D col)
 	{
-		if(currState == State.CHASING && col.tag.Equals("Player"))
+		if(col.gameObject.tag.Equals("Player"))
 		{
-			currState = State.IDLE;
+			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 		}
 	}
 }
