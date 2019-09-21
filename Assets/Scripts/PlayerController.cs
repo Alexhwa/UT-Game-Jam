@@ -36,10 +36,22 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKey(KeyCode.RightArrow))
         {
             rgdbdy2.AddForce(transform.right * xSpeed);
+            if (rgdbdy2.velocity.magnitude >= maxSpeed)
+            {
+                var newVel = rgdbdy2.velocity;
+                newVel /= 1.1f;
+                rgdbdy2.velocity = newVel;
+            }
         }
         else if(Input.GetKey(KeyCode.LeftArrow))
         {
             rgdbdy2.AddForce(transform.right * -xSpeed);
+            if (rgdbdy2.velocity.magnitude >= maxSpeed)
+            {
+                var newVel = rgdbdy2.velocity;
+                newVel /= 1.1f;
+                rgdbdy2.velocity = newVel;
+            }
         }
         /*else if(rgdbdy2.velocity.magnitude >= maxSpeed)
         {
@@ -50,7 +62,7 @@ public class PlayerController : MonoBehaviour
         Vector3 dir = planet.transform.position - this.transform.position;
         transform.up = dir * -1;
 
-        grounded = Physics2D.OverlapCircle(groundCheck.transform.position, .1f, ground);
+        grounded = Physics2D.OverlapCircle(groundCheck.transform.position, .03f, ground);
         if(Input.GetKeyDown(KeyCode.Space) && grounded)
         {
             //assume player is on the ground
