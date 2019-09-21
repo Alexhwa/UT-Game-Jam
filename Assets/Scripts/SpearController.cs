@@ -29,9 +29,9 @@ public class SpearController : MonoBehaviour
     {
         if(LayerMask.NameToLayer("Ground") == collision.gameObject.layer && thrown)
         {
-            
+            becomeStatic();
         }
-        becomeStatic();
+        
     }
     // Update is called once per frame
     void Update()
@@ -72,6 +72,7 @@ public class SpearController : MonoBehaviour
     }
     private void becomeStatic()
     {
+        rgdbdg2D.velocity = Vector3.zero;
         rgdbdg2D.bodyType = RigidbodyType2D.Static;
     }
     private void returnToPlayer()
