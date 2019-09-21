@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     public float jumpForce;
     private Rigidbody2D rgdbdy2;
 
-    private static float gravity = 6f;
+    public float gravity;
     private static GameObject planet;
 
     //Jump checks
@@ -27,31 +27,31 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKey(KeyCode.RightArrow) || Input.GetKey("d"))
+        if(Input.GetKey(KeyCode.RightArrow))
         {
-            rgdbdy2.velocity = new Vector2 (xSpeed * Time.deltaTime, rgdbdy2.velocity.y);
+            rgdbdy2.AddForce(transform.right * xSpeed);
         }
-        else if(Input.GetKey(KeyCode.LeftArrow) || Input.GetKey("a"))
-		{
-			rgdbdy2.velocity = new Vector2(-xSpeed * Time.deltaTime, rgdbdy2.velocity.y);
-		}
-        Vector3 dir = new Vector3(planet.transform.position.x - transform.position.x, planet.transform.position.y - transform.position.y, 0f);
+        else if(Input.GetKey(KeyCode.LeftArrow))
+        {
+            rgdbdy2.AddForce(transform.right * -xSpeed);
+        }
+        else if(!Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.RightArrow))
+        {
+            var newVel = rgdbdy2.velocity;
+            newVel.x /= 1.1f;
+            rgdbdy2.velocity = newVel;
+        }
+        Vector3 dir = planet.transform.position - this.transform.position;
         transform.up = dir * -1;
 
-        grounded = Physics2D.OverlapBox(groundCheck.transform.position, new Vector2(0.05f, 0.05f), ground);
+        grounded = Physics2D.OverlapCircle(groundCheck.transform.position, .1f, ground);
         if(Input.GetKeyDown(KeyCode.Space) && grounded)
         {
             //assume player is on the ground
-            rgdbdy2.AddForce(transform.up * jumpForce);
+            rgdbdy2.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
         }
-        else
-        {
-            rgdbdy2.AddForce(gravity * dir);
-        }
+        
+        rgdbdy2.AddForce(gravity * dir);
+        
     }
-
-	public Vector2 getTransformUp()
-	{
-		return transform.up;
-	}
 }
