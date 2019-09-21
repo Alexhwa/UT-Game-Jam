@@ -769,8 +769,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   xSpeed: 5
-  jumpForce: 10
-  maxSpeed: 8
+  jumpForce: 12
+  maxSpeed: 10
   gravity: 0.5
   ground:
     serializedVersion: 2
