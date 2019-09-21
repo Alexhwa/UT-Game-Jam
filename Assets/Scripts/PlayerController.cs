@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    //Walk and Jump
     public float xSpeed;
     public float jumpForce;
     private Rigidbody2D rgdbdy2;
+    public float maxSpeed;
 
+    //Gravity
     public float gravity;
     private static GameObject planet;
+    private float normalDistFromPlanet;
 
     //Jump checks
     public LayerMask ground;
@@ -22,6 +26,8 @@ public class PlayerController : MonoBehaviour
         planet = GameObject.Find("Planet");
         rgdbdy2 = GetComponent<Rigidbody2D>();
         groundCheck = transform.GetChild(0).gameObject;
+
+        normalDistFromPlanet = Vector2.Distance(transform.position, planet.transform.position);
     }
 
     // Update is called once per frame
@@ -35,12 +41,12 @@ public class PlayerController : MonoBehaviour
         {
             rgdbdy2.AddForce(transform.right * -xSpeed);
         }
-        else if(!Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.RightArrow))
+        /*else if(rgdbdy2.velocity.magnitude >= maxSpeed)
         {
             var newVel = rgdbdy2.velocity;
-            newVel.x /= 1.1f;
+            newVel /= 1.1f;
             rgdbdy2.velocity = newVel;
-        }
+        }*/
         Vector3 dir = planet.transform.position - this.transform.position;
         transform.up = dir * -1;
 
@@ -51,7 +57,8 @@ public class PlayerController : MonoBehaviour
             rgdbdy2.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
         }
         
-        rgdbdy2.AddForce(gravity * dir);
+        rgdbdy2.AddForce(gravity * 
+            (Vector2.Distance(transform.position, planet.transform.position) / normalDistFromPlanet) * dir);
         
     }
 }
