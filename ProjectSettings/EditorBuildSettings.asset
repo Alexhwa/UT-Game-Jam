@@ -6,8 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: Assets/Scenes/_preload.unity
+    guid: 8a14600f66606c243a6fc3482fafa59d
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 25ff8e3af3aca1e42a3b568bdfc3333c
   - enabled: 1
     path: Assets/Scenes/Kody_Test_01(Zach).unity
     guid: 8f2aa9e2fbccdf74e9950fc745c26375

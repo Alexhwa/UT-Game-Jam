@@ -8,6 +8,7 @@ public class SceneController : MonoBehaviour
 	private TransitionAnimController transAnimCont;
 
 	public static readonly int mainMenuIndex = 1;
+	public static readonly int firstLevelIndex = 2;
 	public static readonly int lastLevelIndex = 4;
 
 	private float startTransitionTime = 1f;
@@ -59,8 +60,18 @@ public class SceneController : MonoBehaviour
 		}
 	}
 
-	public void TriggerLoadScene(int index)
+	public void TriggerLoadScene(int _sceneToLoad)
 	{
-		
+		sceneToLoad = _sceneToLoad;
+		//Prevents the system from running the trigger load scene more than once at a time
+		if(!beginLoad && SceneManager.GetActiveScene().buildIndex != 0)
+		{
+			beginLoad = true;
+			transAnimCont.StartTransition();
+		}
+		else if(SceneManager.GetActiveScene().buildIndex == 0)
+		{
+			SceneManager.LoadScene(sceneToLoad);
+		}
 	}
 }
