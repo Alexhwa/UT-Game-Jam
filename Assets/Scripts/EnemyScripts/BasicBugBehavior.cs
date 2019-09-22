@@ -14,6 +14,7 @@ public class BasicBugBehavior : MonoBehaviour
 		IDLE, CHASING
 	}
 
+	private Animator anim;
 	private Rigidbody2D rb;
 	private static GameObject planet;
 	private BasicBugScanner leftScanner;
@@ -23,15 +24,18 @@ public class BasicBugBehavior : MonoBehaviour
 	public float movementSpeed = 10f;
 	private Direction _currDir = Direction.RIGHT;
 	private Direction _nextDir = Direction.LEFT;
-	private State _currState;
+	private State _currState = State.CHASING;
+	private State _nextState = State.IDLE;
 
 	public Direction currDir { get => _currDir;}
 	public Direction nextDir { get => _nextDir; set => _nextDir = value; }
 	public State currState { get => _currState; set => _currState = value; }
+	public State nextState { get => _nextState; set => _nextState = value; }
 
 	// Start is called before the first frame update
 	void Start()
     {
+		anim = gameObject.GetComponent<Animator>();
 		rb = gameObject.GetComponent<Rigidbody2D>();
 		planet = GameObject.Find("Planet");
 		leftScanner = transform.parent.GetChild(1).GetChild(0).gameObject.GetComponent<BasicBugScanner>();
@@ -49,12 +53,26 @@ public class BasicBugBehavior : MonoBehaviour
 	}
 
 	void FixedUpdate()
-    {
+	{
+
+		if(currState != nextState)
+		{
+			if(nextState == State.IDLE)
+			{
+				anim.SetTrigger("BasicBugIdle");
+			}
+			else
+			{
+				anim.SetTrigger("BasicBugRun");
+			}
+			currState = nextState;
+		}
+
 		if(currState == State.IDLE)
 		{
 			if(leftScanner.plrInView || rightScanner.plrInView)
 			{
-				currState = State.CHASING;
+				nextState = State.CHASING;
 			}
 		}
 		if(currState == State.CHASING)
@@ -63,9 +81,10 @@ public class BasicBugBehavior : MonoBehaviour
 
 			if(!leftScanner.plrInView && !rightScanner.plrInView)
 			{
-				currState = State.IDLE;
+				nextState = State.CHASING;
 			}
 		}
+
 		Vector3 dir = new Vector3(planet.transform.position.x - transform.position.x, planet.transform.position.y - transform.position.y, 0f);
 		transform.up = dir * -1;
 
