@@ -10,8 +10,9 @@ public class FlyingBugBehavior : MonoBehaviour
 		LEFT, RIGHT
 	}
 
+	private EnemyDeathManager deathManager;
+
 	public float MAX_TRAVEL_TIME = 3f;
-	public float turnDampener = 0.1f;
 	private float currentTravelTime = 0f;
 
 	private float MIN_DIST_FROM_GROUND;
@@ -32,6 +33,8 @@ public class FlyingBugBehavior : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
+		deathManager = GameObject.Find("GameController").GetComponent<EnemyDeathManager>();
+
 		rb = gameObject.GetComponent<Rigidbody2D>();
 		planet = GameObject.Find("Planet");
 		planetCol = planet.GetComponent<CircleCollider2D>();
@@ -56,7 +59,7 @@ public class FlyingBugBehavior : MonoBehaviour
 				_currDir = Direction.LEFT;
 			}
 
-			rb.velocity = new Vector2(rb.velocity.x * turnDampener, rb.velocity.y);
+			rb.velocity = new Vector2(0f, 0f);
 			currentTravelTime = 0f;
 		}
 
@@ -102,6 +105,12 @@ public class FlyingBugBehavior : MonoBehaviour
 		if(col.gameObject.tag.Equals("Player"))
 		{
 			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+		}
+
+		if(col.gameObject.tag.Equals("Spear"))
+		{
+			deathManager.KillEnemy(transform.position);
+			Destroy(gameObject);
 		}
 	}
 
