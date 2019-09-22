@@ -155,7 +155,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 36}
   m_SizeDelta: {x: 213.3, y: 213.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &20430093
@@ -243,7 +243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 378461058}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &54955801
@@ -273,7 +273,7 @@ GameObject:
   - component: {fileID: 378461061}
   - component: {fileID: 378461060}
   m_Layer: 5
-  m_Name: Button
+  m_Name: PlayButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -295,7 +295,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -200, y: 60}
+  m_AnchoredPosition: {x: -200, y: 155}
   m_SizeDelta: {x: 160, y: 147.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &378461060
@@ -341,9 +341,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 886050955}
-        m_MethodName: ChangeScene
-        m_Mode: 5
+      - m_Target: {fileID: 649616625}
+        m_MethodName: play
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -400,8 +400,9 @@ GameObject:
   - component: {fileID: 649616623}
   - component: {fileID: 649616622}
   - component: {fileID: 649616621}
+  - component: {fileID: 649616625}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: MenuCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -490,6 +491,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &649616625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 649616620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d25b63777e3124a4fa44af0f459afe28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &886050954
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,6 +546,75 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1086891618
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 25053182002268401, guid: cbd7a1cda49c3584d8f434938e1bc584,
+        type: 3}
+      propertyPath: m_Name
+      value: _DevPreload
+      objectReference: {fileID: 0}
+    - target: {fileID: 7409419331345563420, guid: cbd7a1cda49c3584d8f434938e1bc584,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 7409419331345563420, guid: cbd7a1cda49c3584d8f434938e1bc584,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.89
+      objectReference: {fileID: 0}
+    - target: {fileID: 7409419331345563420, guid: cbd7a1cda49c3584d8f434938e1bc584,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7409419331345563420, guid: cbd7a1cda49c3584d8f434938e1bc584,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7409419331345563420, guid: cbd7a1cda49c3584d8f434938e1bc584,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7409419331345563420, guid: cbd7a1cda49c3584d8f434938e1bc584,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7409419331345563420, guid: cbd7a1cda49c3584d8f434938e1bc584,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7409419331345563420, guid: cbd7a1cda49c3584d8f434938e1bc584,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7409419331345563420, guid: cbd7a1cda49c3584d8f434938e1bc584,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7409419331345563420, guid: cbd7a1cda49c3584d8f434938e1bc584,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7409419331345563420, guid: cbd7a1cda49c3584d8f434938e1bc584,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cbd7a1cda49c3584d8f434938e1bc584, type: 3}
 --- !u!1 &1443656109
 GameObject:
   m_ObjectHideFlags: 0
@@ -546,7 +628,7 @@ GameObject:
   - component: {fileID: 1443656112}
   - component: {fileID: 1443656111}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: QuitButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -568,7 +650,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 200, y: 60}
+  m_AnchoredPosition: {x: 200, y: 155}
   m_SizeDelta: {x: 160, y: 147.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1443656111
@@ -614,9 +696,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 886050955}
-        m_MethodName: ChangeScene
-        m_Mode: 5
+      - m_Target: {fileID: 649616625}
+        m_MethodName: quit
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -778,8 +860,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -7.7, y: -0}
-  m_SizeDelta: {x: 975.5, y: 451.9}
+  m_AnchoredPosition: {x: -14.3, y: -14.9}
+  m_SizeDelta: {x: 2063.2, y: 959.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1915980289
 MonoBehaviour:
