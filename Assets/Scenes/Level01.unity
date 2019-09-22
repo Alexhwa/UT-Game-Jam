@@ -2398,25 +2398,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1298794457}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1315179112
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1315179110}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91a5147bf57c3f74d9cc19b2af9d52ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  xSpeed: 8
-  jumpForce: 9.5
-  maxSpeed: 12
-  gravity: 0.8
-  ground:
-    serializedVersion: 2
-    m_Bits: 256
 --- !u!1 &1320079737
 GameObject:
   m_ObjectHideFlags: 0
@@ -2515,23 +2496,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1341441304
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1341441300}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43873bbd67ed7eb48a09f3f2d4d5ec33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rgdbdg2D: {fileID: 1341441303}
-  spearSpeed: 30
-  player: {fileID: 1315179110}
-  pullBackTime: 1
-  gravity: 1
 --- !u!1001 &1550855511
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3864,6 +3828,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1536953739886711858, guid: 97ce8a2ce0238f143a7a4358fe476788,
+        type: 3}
+      propertyPath: pullBackTime
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97ce8a2ce0238f143a7a4358fe476788, type: 3}
