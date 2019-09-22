@@ -2596,9 +2596,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   xSpeed: 8
-  jumpForce: 8.5
-  maxSpeed: 10
-  gravity: 1
+  jumpForce: 9.5
+  maxSpeed: 12
+  gravity: 0.8
   ground:
     serializedVersion: 2
     m_Bits: 256
@@ -2903,7 +2903,7 @@ MonoBehaviour:
   rgdbdg2D: {fileID: 1341441303}
   spearSpeed: 30
   player: {fileID: 1315179110}
-  pullBackTime: 0.5
+  pullBackTime: 1
   gravity: 1
 --- !u!1 &1540271399
 GameObject:
