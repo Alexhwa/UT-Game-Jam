@@ -14,7 +14,6 @@ public class SpearController : MonoBehaviour
     private Vector3 startPos;
     public float pullBackTime;
     private float counter;
-    private bool keyPressedLastFrame;
     //Gravity
     public float gravity;
     private float normalDistFromPlanet;
@@ -48,11 +47,9 @@ public class SpearController : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             counter = pullBackTime;
-            keyPressedLastFrame = false;
         }
         if (thrown && Input.GetMouseButton(0))
         {
-            keyPressedLastFrame = true;
             counter -= Time.deltaTime;
             var randomFloatX = Random.Range(-(1 - counter / pullBackTime) / 16, (1 - counter / pullBackTime) / 16);
             var randomFloatY = Random.Range(-(1 - counter / pullBackTime) / 16, (1 - counter / pullBackTime) / 16);
