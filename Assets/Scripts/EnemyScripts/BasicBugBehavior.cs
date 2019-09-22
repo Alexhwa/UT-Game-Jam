@@ -81,7 +81,7 @@ public class BasicBugBehavior : MonoBehaviour
 
 			if(!leftScanner.plrInView && !rightScanner.plrInView)
 			{
-				nextState = State.CHASING;
+				nextState = State.IDLE;
 			}
 		}
 
