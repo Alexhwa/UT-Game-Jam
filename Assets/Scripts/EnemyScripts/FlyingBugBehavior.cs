@@ -11,6 +11,7 @@ public class FlyingBugBehavior : MonoBehaviour
 	}
 
 	public float MAX_TRAVEL_TIME = 3f;
+	public float turnDampener = 0.1f;
 	private float currentTravelTime = 0f;
 
 	private float MIN_DIST_FROM_GROUND;
@@ -27,7 +28,6 @@ public class FlyingBugBehavior : MonoBehaviour
 	private Direction _nextDir = Direction.LEFT;
 
 	public Direction currDir { get => _currDir; }
-	public Direction nextDir { get => _nextDir; set => _nextDir = value; }
 
 	// Start is called before the first frame update
 	void Start()
@@ -41,11 +41,23 @@ public class FlyingBugBehavior : MonoBehaviour
 
 	void Update()
 	{
+		currentTravelTime += Time.deltaTime;
+
 		if(currentTravelTime >= MAX_TRAVEL_TIME)
 		{
 			transform.localScale = new Vector3(transform.localScale.x * -1f, transform.localScale.y,
 												transform.localScale.z);
-			_currDir = nextDir;
+			if(_currDir == Direction.LEFT)
+			{
+				_currDir = Direction.RIGHT;
+			}
+			else
+			{
+				_currDir = Direction.LEFT;
+			}
+
+			rb.velocity = new Vector2(rb.velocity.x * turnDampener, rb.velocity.y);
+			currentTravelTime = 0f;
 		}
 
 		move();
