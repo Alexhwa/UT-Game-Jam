@@ -18,9 +18,12 @@ public class SpearController : MonoBehaviour
     public float gravity;
     private float normalDistFromPlanet;
     private GameObject planet;
+
+    private ParticleSystem.EmissionModule emission;
     // Start is called before the first frame update
     void Start()
     {
+        emission = GetComponent<ParticleSystem>().emission;
         planet = GameObject.Find("Planet");
         normalDistFromPlanet = Vector2.Distance(transform.position, planet.transform.position);
         player = transform.parent.gameObject;
@@ -44,18 +47,26 @@ public class SpearController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        var ps = GetComponent<ParticleSystem>().main;
         if (Input.GetMouseButtonUp(0))
         {
             counter = pullBackTime;
+            emission.rateOverTime = 10;
+            ps.startSpeed = 1;
         }
         if (thrown && Input.GetMouseButton(0))
         {
             counter -= Time.deltaTime;
+            
+            emission.rateOverTime = 10 * 10 * (1 - counter / pullBackTime);
+            
+            ps.startSpeed = 10 * (1 - counter / pullBackTime);
             var randomFloatX = Random.Range(-(1 - counter / pullBackTime) / 16, (1 - counter / pullBackTime) / 16);
             var randomFloatY = Random.Range(-(1 - counter / pullBackTime) / 16, (1 - counter / pullBackTime) / 16);
             transform.Translate(new Vector2(randomFloatX, randomFloatY));
             if (counter < 0)
             {
+                emission.rateOverTime = 10;
                 returnToPlayer();
                 thrown = false;
             }
