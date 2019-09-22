@@ -110,7 +110,10 @@ public class PlayerController : MonoBehaviour
 
         grounded = Physics2D.OverlapCircle(groundCheck.transform.position, .1f, ground);
         anim.SetBool("Grounded", grounded);
-        
+        if (grounded)
+        {
+            anim.SetBool("Jumped", false);
+        }
         if(Input.GetKeyDown(KeyCode.Space) && grounded)
         {
             anim.SetBool("Jumped", true);
