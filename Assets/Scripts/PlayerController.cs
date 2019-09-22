@@ -127,9 +127,14 @@ public class PlayerController : MonoBehaviour
                 rgdbdy2.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
             }
         }
-        //gravity
-        rgdbdy2.AddForce(gravity * 
-            (Vector2.Distance(transform.position, planet.transform.position) / normalDistFromPlanet) * dir);
         
+    }
+    private void FixedUpdate()
+    {
+        Vector3 dir = planet.transform.position - this.transform.position;
+        //gravity
+        rgdbdy2.AddForce(gravity *
+            (Vector2.Distance(transform.position, planet.transform.position) / normalDistFromPlanet) * dir);
+
     }
 }
