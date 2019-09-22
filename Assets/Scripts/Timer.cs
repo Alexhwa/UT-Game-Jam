@@ -13,7 +13,7 @@ public class Timer : MonoBehaviour
 	Stopwatch timer;
     UnityEngine.UI.Text t;
 
-	private static int limitInInts = 120;
+	private static int limitInInts = 119;
 	private float currTime;
 
     System.TimeSpan lastTime;
