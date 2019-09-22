@@ -110,8 +110,10 @@ public class PlayerController : MonoBehaviour
 
         grounded = Physics2D.OverlapCircle(groundCheck.transform.position, .1f, ground);
         anim.SetBool("Grounded", grounded);
+        
         if(Input.GetKeyDown(KeyCode.Space) && grounded)
         {
+            anim.SetBool("Jumped", true);
             if (anim.GetBool("Walking"))
             {
                 rgdbdy2.AddForce(transform.up * jumpForce * (1 + .2f * rgdbdy2.velocity.magnitude / maxSpeed), ForceMode2D.Impulse);
