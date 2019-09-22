@@ -14,6 +14,8 @@ public class BasicBugBehavior : MonoBehaviour
 		IDLE, CHASING
 	}
 
+	private SceneController sceneCont;
+
 	private EnemyDeathManager deathManager;
 
 	private Animator anim;
@@ -36,7 +38,9 @@ public class BasicBugBehavior : MonoBehaviour
 
 	// Start is called before the first frame update
 	void Start()
-    {
+	{
+		sceneCont = GameObject.Find("GameController").GetComponent<SceneController>();
+
 		deathManager = GameObject.Find("GameController").GetComponent<EnemyDeathManager>();
 
 		anim = gameObject.GetComponent<Animator>();
@@ -116,7 +120,7 @@ public class BasicBugBehavior : MonoBehaviour
 	{
 		if(col.gameObject.tag.Equals("Player"))
 		{
-			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+			sceneCont.RestartLevel();
 		}
 
 		if(col.gameObject.tag.Equals("Spear"))

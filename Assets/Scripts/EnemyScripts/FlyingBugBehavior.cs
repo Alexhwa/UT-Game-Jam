@@ -10,6 +10,8 @@ public class FlyingBugBehavior : MonoBehaviour
 		LEFT, RIGHT
 	}
 
+	private SceneController sceneCont;
+
 	private EnemyDeathManager deathManager;
 
 	public float MAX_TRAVEL_TIME = 3f;
@@ -33,6 +35,7 @@ public class FlyingBugBehavior : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
+		sceneCont = GameObject.Find("GameController").GetComponent<SceneController>();
 		deathManager = GameObject.Find("GameController").GetComponent<EnemyDeathManager>();
 
 		rb = gameObject.GetComponent<Rigidbody2D>();
@@ -104,7 +107,7 @@ public class FlyingBugBehavior : MonoBehaviour
 	{
 		if(col.gameObject.tag.Equals("Player"))
 		{
-			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+			sceneCont.RestartLevel();
 		}
 
 		if(col.gameObject.tag.Equals("Spear"))

@@ -74,4 +74,18 @@ public class SceneController : MonoBehaviour
 			SceneManager.LoadScene(sceneToLoad);
 		}
 	}
+
+	public void RestartLevel()
+	{
+		StartCoroutine(RestartDelay());
+	}
+
+	private IEnumerator RestartDelay()
+	{
+		transAnimCont.StartTransition();
+		yield return new WaitForSeconds(0.5f);
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+		yield return new WaitForSeconds(0.4f);
+		transAnimCont.EndTransition();
+	}
 }
