@@ -13,11 +13,11 @@ public class Timer : MonoBehaviour
 	Stopwatch timer;
     UnityEngine.UI.Text t;
 
-	private static int limitInInts = 90;
+	private static int limitInInts = 50;
 	private float currTime;
 
     System.TimeSpan lastTime;
-    readonly System.TimeSpan timeLimit = new System.TimeSpan(0,1, 30); //I know this is horrendous but I got less than 6 hours left!
+    readonly System.TimeSpan timeLimit = new System.TimeSpan(0, 0, limitInInts);
 
     string elapsed;
 	private bool activatedLoseState = false;

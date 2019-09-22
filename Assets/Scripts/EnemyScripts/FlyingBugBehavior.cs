@@ -112,6 +112,7 @@ public class FlyingBugBehavior : MonoBehaviour
 
 		if(col.gameObject.tag.Equals("Spear"))
 		{
+
 			deathManager.KillEnemy(transform.position);
 			Destroy(gameObject);
 		}
