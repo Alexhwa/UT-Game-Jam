@@ -2619,7 +2619,7 @@ MonoBehaviour:
   rgdbdg2D: {fileID: 1746992534}
   spearSpeed: 30
   player: {fileID: 2121839165}
-  pullBackTime: 0
+  pullBackTime: 1
   gravity: 1
 --- !u!1 &1826255246
 GameObject:
