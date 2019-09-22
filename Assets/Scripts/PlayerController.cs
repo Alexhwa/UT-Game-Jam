@@ -114,7 +114,7 @@ public class PlayerController : MonoBehaviour
         {
             if (anim.GetBool("Walking"))
             {
-                rgdbdy2.AddForce(transform.up * jumpForce * (1 + 2 * rgdbdy2.velocity.magnitude / maxSpeed), ForceMode2D.Impulse);
+                rgdbdy2.AddForce(transform.up * jumpForce * (1 + .2f * rgdbdy2.velocity.magnitude / maxSpeed), ForceMode2D.Impulse);
             }
             //assume player is on the ground
             else

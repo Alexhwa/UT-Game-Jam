@@ -26,13 +26,19 @@ public class SpearController : MonoBehaviour
         startPos = transform.localPosition;
         print(startPos);
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collider2D collision)
     {
-        if(LayerMask.NameToLayer("Ground") == collision.gameObject.layer && thrown)
+        if (LayerMask.NameToLayer("Ground") == collision.gameObject.layer && thrown)
         {
             becomeStatic();
         }
-        
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (LayerMask.NameToLayer("Ground") == collision.gameObject.layer && thrown)
+        {
+            becomeStatic();
+        }
     }
     // Update is called once per frame
     void Update()
@@ -81,6 +87,7 @@ public class SpearController : MonoBehaviour
     private void becomeStatic()
     {
         rgdbdg2D.bodyType = RigidbodyType2D.Static;
+        GetComponent<EdgeCollider2D>().isTrigger = false;
     }
     private void returnToPlayer()
     {
