@@ -11,6 +11,7 @@ public class SpearController : MonoBehaviour
     public GameObject player;
     public float pullBackTime;
     private Vector3 startPos;
+    Plane plane;
 
     //Gravity
     public float gravity;
@@ -29,9 +30,9 @@ public class SpearController : MonoBehaviour
     {
         if(LayerMask.NameToLayer("Ground") == collision.gameObject.layer && thrown)
         {
-            
+            becomeStatic();
         }
-        becomeStatic();
+        
     }
     // Update is called once per frame
     void Update()
@@ -44,11 +45,18 @@ public class SpearController : MonoBehaviour
         }
         else if (!thrown)
         {
-            Vector3 mousePos = Input.mousePosition;
-            mousePos = Camera.main.ScreenToWorldPoint(mousePos);
-
-            Vector2 direction = mousePos - transform.position;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            plane = new Plane(Vector3.forward, new Vector3(Camera.main.transform.position.x, 
+                                                            Camera.main.transform.position.y, 0));
+            float enter = 0.0f;
+            if (plane.Raycast(ray, out enter))
+            {
+                Vector3 hitPoint = ray.GetPoint(enter);
+            }
+            var mousePos = ray.GetPoint(enter);
+            var direction = mousePos - transform.position;
             transform.up = direction;
+            
             if (Input.GetMouseButtonDown(0))
             {
                 thrown = true;
