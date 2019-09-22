@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class SpearController : MonoBehaviour
 {
-    //Throw and return
+    //Throw
     private bool thrown = false;
     public Rigidbody2D rgdbdg2D;
     public float spearSpeed;
-    public GameObject player;
-    public float pullBackTime;
-    private Vector3 startPos;
     Plane plane;
-
+    //Return
+    public GameObject player;
+    private Vector3 startPos;
+    public float pullBackTime;
+    private float counter;
+    private bool keyPressedLastFrame;
     //Gravity
     public float gravity;
     private float normalDistFromPlanet;
@@ -24,9 +26,9 @@ public class SpearController : MonoBehaviour
         normalDistFromPlanet = Vector2.Distance(transform.position, planet.transform.position);
         player = transform.parent.gameObject;
         startPos = transform.localPosition;
-        print(startPos);
+        counter = pullBackTime;
     }
-    private void OnCollisionEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (LayerMask.NameToLayer("Ground") == collision.gameObject.layer && thrown)
         {
@@ -43,14 +45,27 @@ public class SpearController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        if (thrown && Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonUp(0))
         {
-            returnToPlayer();
-            thrown = false;
+            counter = pullBackTime;
+            keyPressedLastFrame = false;
+        }
+        if (thrown && Input.GetMouseButton(0))
+        {
+            keyPressedLastFrame = true;
+            counter -= Time.deltaTime;
+            var randomFloatX = Random.Range(-(1 - counter / pullBackTime) / 16, (1 - counter / pullBackTime) / 16);
+            var randomFloatY = Random.Range(-(1 - counter / pullBackTime) / 16, (1 - counter / pullBackTime) / 16);
+            transform.Translate(new Vector2(randomFloatX, randomFloatY));
+            if (counter < 0)
+            {
+                returnToPlayer();
+                thrown = false;
+            }
         }
         else if (!thrown)
         {
+            //Point spear at mouse
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             plane = new Plane(Vector3.forward, new Vector3(Camera.main.transform.position.x, 
                                                             Camera.main.transform.position.y, 0));
