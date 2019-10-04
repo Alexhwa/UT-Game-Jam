@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - Spear
   layers:
   - Default
   - TransparentFX
@@ -13,9 +15,9 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
+  - Ground
+  - PostProcessing
+  - TransitionLayer
   - 
   - 
   - 
@@ -38,6 +40,18 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 4030256089
+    locked: 0
+  - name: BlockLayer
+    uniqueID: 3697046771
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: EnemyLayer
+    uniqueID: 3302487333
+    locked: 0
+  - name: Foreground
+    uniqueID: 2913138725
     locked: 0

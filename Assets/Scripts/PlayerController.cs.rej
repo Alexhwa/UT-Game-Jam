@@ -1,0 +1,24 @@
+diff a/Assets/Scripts/PlayerController.cs b/Assets/Scripts/PlayerController.cs	(rejected hunks)
+@@ -36,10 +36,22 @@
+         if(Input.GetKey(KeyCode.RightArrow))
+         {
+             rgdbdy2.AddForce(transform.right * xSpeed);
++            if (rgdbdy2.velocity.magnitude >= maxSpeed)
++            {
++                var newVel = rgdbdy2.velocity;
++                newVel /= 1.1f;
++                rgdbdy2.velocity = newVel;
++            }
+         }
+         else if(Input.GetKey(KeyCode.LeftArrow))
+         {
+             rgdbdy2.AddForce(transform.right * -xSpeed);
++            if (rgdbdy2.velocity.magnitude >= maxSpeed)
++            {
++                var newVel = rgdbdy2.velocity;
++                newVel /= 1.1f;
++                rgdbdy2.velocity = newVel;
++            }
+         }
+         /*else if(rgdbdy2.velocity.magnitude >= maxSpeed)
+         {
